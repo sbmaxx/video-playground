@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test</title>
+        <meta encoding="utf8">
+        <style>
+            .square
+            {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -100px;
+                margin-top: -100px;
+                z-index: 2147483647;
+                visibility: hidden;
+            }
+            .visible
+            {
+                visibility: visible;
+            }
+        </style>
+        <script type="text/javascript">
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                var square = document.querySelector('.square');
+                var video = document.querySelector('video');
+
+                square.addEventListener('click', function() {
+                    alert('click');
+                }, false);
+
+                ['webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'].forEach(function(event) {
+                    video.addEventListener(event, onVideoFullscreenChange, false);
+                });
+
+                function onVideoFullscreenChange() {
+                    var isFullscreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+                    if (isFullscreen) {
+                        square.className += ' visible';
+                    } else {
+                        square.className = square.className.replace(' visible', '');
+                    }
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <video src="index.mp4" controls></video>
+        <div class="square"></div>
+    </body>
+</html>
